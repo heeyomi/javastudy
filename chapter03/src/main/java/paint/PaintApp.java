@@ -8,10 +8,19 @@ public class PaintApp {
 		point1.setX(10);
 		point1.setY(20);
 		point1.show();
+		point1.show(false);
 		
-
 		Point point2 = new Point(20, 30);
 		point2.show();
+		
+		Point point3 = new ColorPoint();
+		point3.setX(50);
+		point3.setY(100);
+		((ColorPoint)point3).setColor("Red");
+		//point3.show();
+		point3.show(true);
+		
+		
 	}
 
 }
