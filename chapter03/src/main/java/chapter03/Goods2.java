@@ -5,7 +5,20 @@ public class Goods2 {
 	private String name;
 	private int countSold;
 	private int countStock;
-
+	
+	public Goods2() {
+		
+	}
+	
+	public Goods2(int price, String name, int countSold, int countStock) {
+		super();
+		this.price = price;
+		this.name = name;
+		this.countSold = countSold;
+		this.countStock = countStock;
+	}
+	
+	
 	public int getPrice() {
 		return price;
 	}
@@ -34,6 +47,11 @@ public class Goods2 {
 	public void showInfo() {
 		System.out.println("name : " + name + ", "+ "price : " + price + "," + "countStock :" + countStock + "," + "countSold : " + countSold);
 		
+	}
+	
+	public int calcDiscountPrice(double rate) {
+		int discountPrice = (int) (price * rate);
+		return discountPrice;
 	}
 	
 }
