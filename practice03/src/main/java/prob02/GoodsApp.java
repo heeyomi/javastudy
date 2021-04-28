@@ -11,13 +11,11 @@ public class GoodsApp {
 		private int stock;
 
 		public Goods(String product, int price, int stock) {
-			super();
 			this.product = product;
 			this.price = price;
 			this.stock = stock;
 		}
 	}
-
 
 
 	public static void main(String[] args) {
