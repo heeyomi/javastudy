@@ -10,7 +10,7 @@ public class PaintApp {
 		
 		Point point2 = new Point(20, 30);
 		//point2.show();
-		drawPoint(point2);
+		draw(point2);
 		
 		Point point3 = new ColorPoint(50,100,"red");
 		//point3.setX(50);
@@ -18,7 +18,7 @@ public class PaintApp {
 		//((ColorPoint)point3).setColor("Red");
 		//point3.show();
 		//point3.show(true);
-		drawPoint(point3);
+		draw(point3);
 		
 		Rect rect = new Rect();
 		//drawShape(rect);
@@ -33,6 +33,8 @@ public class PaintApp {
 		Circle circle = new Circle();
 		// drawShape(circle);
 		draw(circle);
+		
+		draw(new GraphicText("Hello~"));
 	}
 	
 //	public static void drawColorPoint(ColorPoint pt) {
