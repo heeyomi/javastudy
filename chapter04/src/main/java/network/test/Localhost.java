@@ -25,7 +25,6 @@ public class Localhost {
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		}
-		
 
 	}
 
