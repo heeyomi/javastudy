@@ -1,14 +1,9 @@
 package network.echo;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketException;
 
 public class EchoServer {
 	public static final int PORT = 7000;
@@ -23,49 +18,14 @@ public class EchoServer {
 			serverSocket.bind(new InetSocketAddress("0.0.0.0", PORT));
 			log("starts.. [port : " + PORT + "]");
 			
-			//3. accept
-			Socket socket = serverSocket.accept(); // blocking
-
-			InetSocketAddress inetRemoteSocketAddress = (InetSocketAddress) socket.getRemoteSocketAddress();
-			String remoteHostAddress = inetRemoteSocketAddress.getAddress().getHostAddress();
-			int remoteHostPort = inetRemoteSocketAddress.getPort();
-			log("connected by client[" + remoteHostAddress + ":" + remoteHostPort + "]");
-
-			try {
-				// 4. IO Stream 받아오기
-				BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream(), "utf-8"));
-				PrintWriter pw = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "utf-8"), true );
-
-				while (true) {
-					// 5. 데이터 읽기
-					String data = br.readLine();
-					if (data == null) {
-						log("closed by cleint");
-						break;
-					}
-					
-					log("receiverd : " + data) ;
-					
-					// 5. 데이터 쓰기
-					pw.print(data);
-				}
-
-			} catch (SocketException e) {
-				log("suddenly closed by client");
+			while (true) {
+				//3. accept
+				Socket socket = serverSocket.accept(); // blocking
 				
-			} catch (IOException e) {
-				e.printStackTrace();
-			} finally {
-				try {
-					if (socket != null && socket.isClosed() == false) {
-						socket.close();
-					}
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+				Thread thread = new EchoServerReceiveThread(socket);
+				thread.start();
+				
 			}
-
-
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -80,7 +40,7 @@ public class EchoServer {
 		}
 	}
 	
-	private static void log(String log) {
+	public static void log(String log) {
 		System.out.println("[EchoServer] " + log);
 	}
 }
