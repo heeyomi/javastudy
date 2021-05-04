@@ -46,7 +46,6 @@ public class TCPServer {
 						break;
 					}
 					
-					
 					String data = new String(buffer, 0, readByteCount, "utf-8");
 					System.out.println("[server] received : " + data);
 					
