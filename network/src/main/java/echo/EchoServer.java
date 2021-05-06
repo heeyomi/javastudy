@@ -1,4 +1,4 @@
-package network.echo;
+package echo;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
