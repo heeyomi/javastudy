@@ -19,10 +19,17 @@ public class LoginMain {
 		System.out.println("비밀번호를 입력하시오 : ");
 		String password = scanner.nextLine();
 
-		/*
-		 *  로그인 처리 부분을 완성 합니다.
-		 */
-
+		try {
+			User user = new User(id, password);
+			login(joinUsers, user);
+			System.out.println("로그인 성공");
+		} catch (UserNotFoundException e) {
+			System.out.println("사용자를 찾을 수 없습니다.");
+		} catch (PasswordDismatchException e) {
+			System.out.println("비밀번호가 틀렸습니다.");
+		} finally {
+			scanner.close();
+		}
 
 	}
 
