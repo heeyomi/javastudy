@@ -16,6 +16,10 @@ public class TCPServer {
 			// 1. 서버소켓 생성
 			serverSocket = new ServerSocket();
 			
+			// 1-1. Time-Wait 상태에서도 소켓에 포트 번호
+			//      할당이 가능하게 하기 위해서...
+			serverSocket.setReuseAddress(true);
+			
 			// 2. 바인딩(binding)
 			//	 Socket에 InetSocketAdress(IPAdress + Port)
 			//	 IPAdress : 0.0.0.0 => 모든 IP 연결 허용
@@ -51,8 +55,12 @@ public class TCPServer {
 					System.out.println("[server] received : " + data);
 					
 					// 6. data 쓰기
-					os.write(data.getBytes("utf-8"));
-					
+					try {
+						Thread.sleep(2000);
+						os.write(data.getBytes("utf-8"));
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
 				}
 				
 			} catch (SocketException e) {
