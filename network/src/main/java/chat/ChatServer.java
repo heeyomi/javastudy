@@ -6,44 +6,42 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ChatServer {
-	public static final int PORT = 8080;
-	
+	static final int PORT = 8888;
+
 	public static void main(String[] args) {
 		ServerSocket serverSocket = null;
+		List<Writer> listWriters = new ArrayList<Writer>();
 		
 		try {
-			// 1. Server Socket 생성
+			// 1. 서버 소켓 생성
 			serverSocket = new ServerSocket();
-			List<Writer> listWriters = new ArrayList<Writer>();
-			
-			// 2. binding
-			String hostAddress = InetAddress.getLocalHost().getHostAddress();
-			serverSocket.bind(new InetSocketAddress(hostAddress, PORT));
-			log("연결 기다림 " + hostAddress + ":" + PORT);
-			
+
+			// 2. 바인딩
+			String hostAdress = InetAddress.getLocalHost().getHostAddress();
+			serverSocket.bind(new InetSocketAddress("0.0.0.0", PORT));
+			ServerLog("연결 기다림" + hostAdress + ":"+ PORT);
+
 			// 3. 요청 대기
 			while (true) {
 				Socket socket = serverSocket.accept();
 				new ChatServerThread(socket, listWriters).start();
 			}
-			
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
-			e.printStackTrace();
+			ServerLog("Error : " + e);
+		} finally {
+			if (serverSocket!= null && !serverSocket.isClosed()) {
+				serverSocket.isClosed();
+			}
 		}
-		
-		
 
 	}
 
-	public static void log(String log) {
-		System.out.println("[server] : " + log);
-		
+	public static void ServerLog(String log) {
+		System.out.println("[Server] " + log);
 	}
+
 }
