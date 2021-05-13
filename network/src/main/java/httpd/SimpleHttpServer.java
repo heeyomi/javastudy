@@ -17,14 +17,14 @@ public class SimpleHttpServer {
 			serverSocket = new ServerSocket();
 			   
 			// 2. Bind
-			serverSocket.bind( new InetSocketAddress( "0.0.0.0", PORT ) );
-			consolLog("starts ... [port: " + PORT + "]");
+			serverSocket.bind(new InetSocketAddress( "0.0.0.0", PORT ));
+			consolLog("starts... [port:" + PORT + "]");
 
 			while (true) {
 				// 3. Wait for connecting ( accept )
 				Socket socket = serverSocket.accept();
 
-				// 4. Delegate Processing Request (내가 처리하지 않고 RequstHandler에게 위임한다.)
+				// 4. Delegate Processing Request
 				new RequestHandler(socket).start();
 			}
 
