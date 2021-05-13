@@ -8,8 +8,6 @@ import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.URLConnection;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 public class RequestHandler extends Thread {
 	private static final String DOCUMENTROOT = "/webapp";
