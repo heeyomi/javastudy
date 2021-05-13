@@ -10,14 +10,8 @@ import java.net.Socket;
 import java.nio.file.Files;
 
 public class RequestHandler extends Thread {
-	// private static final String DOCUMENTROOT = "./weapp";
-	private static String DOCUMENTROOT = "";
+	private static final String DOCUMENTROOT = "./weapp";
 	private Socket socket;
-	
-	static {
-		DOCUMENTROOT = RequestHandler.class.getClass().getResource("/webapp").getPath();
-		System.out.println(DOCUMENTROOT);
-	}
 	
 	public RequestHandler( Socket socket ) {
 		this.socket = socket;
